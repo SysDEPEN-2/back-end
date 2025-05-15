@@ -38,9 +38,13 @@ public class SecurityConfig  {
 				.authorizeHttpRequests((requests) -> requests
 						.requestMatchers("/api/v1/login/logar").permitAll()
 						.requestMatchers("/api/v1/usuario/save").permitAll()
-						.anyRequest().authenticated())
-				.authenticationProvider(authenticationProvider)
-				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+						.anyRequest().authenticated()
+				)
+				.oauth2ResourceServer(oauth2 -> oauth2
+						.jwt(jwt -> jwt
+								.jwkSetUri("http://localhost:8080/realms/depen/protocol/openid-connect/certs")
+						)
+				)
 				.sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 		return http.build();

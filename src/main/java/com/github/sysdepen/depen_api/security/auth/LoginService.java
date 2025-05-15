@@ -25,11 +25,11 @@ public class LoginService {
 		try {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(
-							login.getDocument(),
+							login.getUsername(),
 							login.getPassword()
 					)
 			);
-			Usuario user = repository.findByDocument(login.getDocument()).orElseThrow();
+			Usuario user = repository.findByDocument(login.getUsername()).orElseThrow();
 			return jwtService.generateToken(user);
 		} catch (BadCredentialsException e) {
 			throw new AuthenticationException("Usuário ou senha incorretos.") {};

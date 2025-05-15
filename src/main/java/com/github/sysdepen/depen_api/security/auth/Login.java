@@ -9,7 +9,7 @@ import lombok.Setter;
 public class Login {
 
 	@NotBlank(message = "O CPF/RNE é obrigatório.")
-	private String document;
+	private String username;
 
 	@NotBlank(message = "A senha é obrigatória.")
 	private String password;
